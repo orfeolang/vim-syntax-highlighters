@@ -1,0 +1,389 @@
+#_Orfeo_Syntax_Highlighter_Tests
+
+#_v0.1.0
+#_copyright_(©)_2019-2020_Pierre-Emmanuel_Lévesque
+
+#_Note:
+#_Underscores_are_used_because_commenting_is_not_yet_implemented
+#_Without_underscores,_text_gets_treated_as_Datum
+
+#-------------------------------------------------------------------------------
+  #_Passers
+
+  #_Everything_below_must_be_colored
+
+  #_Notes:
+
+  #_1
+
+  #_Parentheses_are_not_colored_by_default
+  #_They_get_colored_if_you_give_them_a_color_in_styles/orfeo.less
+
+  #_2
+
+  #_To_run_this_test_properly,
+  #_first_uncomment_the_color_for_Parentheses_in_styles/orfeo.less
+#-------------------------------------------------------------------------------
+
+#_Parentheses_should_pass
+
+(
+)
+()
+(())
+(() ())
+
+  #_open_before
+((
+()
+(:=
+(:4
+(:4/4
+(datum
+("datum"
+(^^^datum
+
+  #_open_after
+((
+^^^(
+
+  #_close_before
+))
+)...
+
+  #_close_after
+()
+))
+:=)
+:4)
+:4/4)
+datum)
+"datum")
+datum...)
+
+#_Duration_should_pass
+
+:=
+
+:0
+:1
+:2
+:3
+:4
+:5
+:6
+:7
+:8
+:9
+:1234567890
+:102030405060708090
+:0.
+:1.
+:2.
+:3.
+:4.
+:5.
+:6.
+:7.
+:8.
+:9.
+:1234567890.
+:102030405060708090.
+:.0
+:.1
+:.2
+:.3
+:.4
+:.5
+:.6
+:.7
+:.8
+:.9
+:.1234567890
+:.102030405060708090
+:0.0
+:0.1
+:0.2
+:0.3
+:0.4
+:0.5
+:0.6
+:0.7
+:0.8
+:0.9
+:0.1234567890
+:0.102030405060708090
+:100.000
+:111.111
+:222.222
+:333.333
+:444.444
+:555.555
+:666.666
+:777.777
+:888.888
+:999.999
+:1234567890.1234567890
+:102030405060708090.102030405060708090
+
+:1/1
+:2/2
+:3/3
+:4/4
+:5/5
+:6/6
+:7/7
+:8/8
+:9/9
+:1234567890/1234567890
+:102030405060708090/102030405060708090
+:1./1.
+:2./2.
+:3./3.
+:4./4.
+:5./5.
+:6./6.
+:7./7.
+:8./8.
+:9./9.
+:1234567890./1234567890.
+:102030405060708090./102030405060708090.
+:.1/.1
+:.2/.2
+:.3/.3
+:.4/.4
+:.5/.5
+:.6/.6
+:.7/.7
+:.8/.8
+:.9/.9
+:.1234567890/.1234567890
+:.102030405060708090/.102030405060708090
+:0.1/0.1
+:0.2/0.2
+:0.3/0.3
+:0.4/0.4
+:0.5/0.5
+:0.6/0.6
+:0.7/0.7
+:0.8/0.8
+:0.9/0.9
+:0.1234567890/0.1234567890
+:0.102030405060708090/0.102030405060708090
+:100.000/100.000
+:111.111/111.111
+:222.222/222.222
+:333.333/333.333
+:444.444/444.444
+:555.555/555.555
+:666.666/666.666
+:777.777/777.777
+:888.888/888.888
+:999.999/999.999
+:1234567890.1234567890/1234567890.1234567890
+:102030405060708090.102030405060708090/102030405060708090.102030405060708090
+
+#_Datum_should_pass
+
+_
+a b c d e f g h i j k l m n o p q r s t u v w x y z
+A B C D E F G H I J K L M N O P Q R S T U V W X Y Z
+0 1 2 3 4 5 6 7 8 9
+/ [ ] ♮ ♭ ♯ -
+
+.datum
+_datum
+datum
+DATUM
+/datum
+[datum]
+]datum[
+♮♭♯ ♯♮♭ ♭♯♮
+-datum
+
+_datum_DATUM_/[A♮]/[B♭]/[C♯]/.-0.9
+
+""
+" "
+"   "
+"_datum_DATUM_/[A♮]/[B♭]/[C♯]/.-0.9"
+
+" ( ) := :4 :4/4 datum ^a b. "
+
+#_Rhythm_Flags_and_Rhyhtm_Dots_should_pass
+
+^^^(
+^^^datum
+^^^"datum"
+
+)...
+datum...
+"datum"...
+
+#_A_potpourri_example_should_pass
+
+()
+(:=)
+(:4)
+(:4/4)
+( := )
+( :4 )
+( :4/4 )
+(a)
+(a a)
+( a a )
+("a")
+("a" "a")
+( "a" "a" )
+(:= a "a")
+(:4 a "a")
+(:4/4 a "a")
+( := a "a" )
+( :4 a () "a" )
+( :4/4 () a () "a" )
+
+^(^^(:4/4 ^^^"a"... ^^^()...)..).
+
+^(:=
+  a
+  ^^(:4
+    ^a.
+    ^^^(:4.4
+      "a"
+      ^^^^(:4.4/4.4
+        ^"abc".
+      ).
+    )..
+  )...
+)....
+
+#-------------------------------------------------------------------------------
+  #_Failers
+
+  #_Everything_below_must_be_uncolored
+#-------------------------------------------------------------------------------
+
+#_Durations_with_leading_zeros_should_fail
+
+:00
+:00.0
+:1/00
+:1/00.0
+
+#_Durations_with_a_negative_number_should_fail
+
+:-1
+:-1.1
+:1/-1
+:1/-1.1
+:-1/-1
+:-1.1/-1.1
+
+#_TimeSignature_Durations_with_a_denominator_of_zero_should_fail
+
+:0/0
+:0/0.0
+:1/0
+:1/0.0
+
+#_Datum_with_illegal_characters_should_fail
+
+datum$
+$datum
+datum$datum
+
+#_Rhythm_Flags_And_Rhythm_Dots_used_with_incomplete_Quoted_Datum_should_fail
+
+^^^"datum
+datum"...
+
+#_Orphaned_Rhythm_Flags_And_Rhythm_Dots_should_fail
+
+^
+^^^
+.
+...
+
+#_Unknown_tokens_should_fail
+
+!
+@
+#
+$
+!@#$
+
+#_Unallowed_token_collisions_should_fail
+
+(...
+
+)(
+):=
+):4
+):4/4
+)datum
+)"datum"
+)^^^
+
+:=(
+:=:=
+:=:4
+:=:4/4
+:=datum
+:="datum"
+:=^^^
+:=...
+
+:4(
+:4:=
+:4:4
+:4:4/4
+:4datum
+:4"datum"
+:4^^^
+
+:4/4(
+:4/4:=
+:4/4:4
+:4/4:4/4
+:4/4datum
+:4/4"datum"
+:4/4^^^
+
+datum(
+datum:=
+datum:4
+datum:4/4
+datum"datum
+datum^^^
+
+"datum"(
+"datum":=
+"datum":4
+"datum":4/4
+"datum"datum
+"datum"^^^
+
+^^^)
+^^^:=
+^^^:=4
+^^^:4/4
+^^^...
+
+...(
+...:=
+...:4
+...:4/4
+..."datum"
+...^^^
+
+#-------------------------------------------------------------------------------
+  #_Partial_Failers
+
+  #_Exceptions_explained_on_a_case_by_case_basis
+#-------------------------------------------------------------------------------
+
+#_Rhythm_Dots_get_colored_when_placed_after_a_Duration_since_a_Duration_gets
+#_confused_with_Datum_which_do_allow_Rhythm_Dots_to_follow
+
+:4...
+:4/4...

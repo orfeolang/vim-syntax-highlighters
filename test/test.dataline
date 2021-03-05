@@ -1,0 +1,131 @@
+# Dataline Syntax Highlighter Tests
+
+# v0.1.0
+# copyright (c) 2019-2020 Pierre-Emmanuel_Lévesque
+
+--------------------------------------------------------------------------------
+  Passers
+
+  - Points (numbers in left column) must be colored.
+  - Datum (characters in following columns) must be uncolored.
+--------------------------------------------------------------------------------
+
+# Nonnegative integers and floats should pass.
+
+0 dataline 0
+1 dataline 1
+2 dataline 2
+3 dataline 3
+4 dataline 4
+5 dataline 5
+6 dataline 6
+7 dataline 7
+8 dataline 8
+9 dataline 9
+1234567890         dataline 1234567890
+102030405060708090 dataline 102030405060708090
+0. dataline 0.
+1. dataline 1.
+2. dataline 2.
+3. dataline 3.
+4. dataline 4.
+5. dataline 5.
+6. dataline 6.
+7. dataline 7.
+8. dataline 8.
+9. dataline 9.
+1234567890.         dataline 1234567890.
+102030405060708090. dataline 102030405060708090.
+.0 dataline .0
+.1 dataline .1
+.2 dataline .2
+.3 dataline .3
+.4 dataline .4
+.5 dataline .5
+.6 dataline .6
+.7 dataline .7
+.8 dataline .8
+.9 dataline .9
+.1234567890         dataline .1234567890
+.102030405060708090 dataline .102030405060708090
+0.0 dataline 0.0
+0.1 dataline 0.1
+0.2 dataline 0.2
+0.3 dataline 0.3
+0.4 dataline 0.4
+0.5 dataline 0.5
+0.6 dataline 0.6
+0.7 dataline 0.7
+0.8 dataline 0.8
+0.9 dataline 0.9
+0.1234567890         dataline 0.1234567890
+0.102030405060708090 dataline 0.102030405060708090
+100.100 dataline 100.100
+111.111 dataline 111.111
+222.222 dataline 222.222
+333.333 dataline 333.333
+444.444 dataline 444.444
+555.555 dataline 555.555
+666.666 dataline 666.666
+777.777 dataline 777.777
+888.888 dataline 888.888
+999.999 dataline 999.999
+1234567890.1234567890                 dataline 1234567890.1234567890
+102030405060708090.102030405060708090 dataline 102030405060708090.102030405060708090
+
+# Leading spaces should pass.
+
+  1234567890                    dataline 1234567890
+    1234567890.                 dataline 1234567890.
+      .1234567890               dataline .1234567890
+        0.1234567890            dataline 0.1234567890
+          1234567890.1234567890 dataline 1234567890.1234567890
+
+# Trailing zeros should pass.
+
+0.000 dataline 0.000
+
+# A trailing newline should pass.
+
+0
+0.
+0.0
+
+--------------------------------------------------------------------------------
+  Failers
+
+  - Everything below must be uncolored.
+--------------------------------------------------------------------------------
+
+# Non numbers should fail.
+
+.
+-
+a
+$
+
+# Negative numbers should fail.
+
+-0
+-0.
+-0.0
+
+# Numbers with leading zeros should fail.
+
+00
+001
+00.
+00.1
+-00
+-001
+-00.
+-00.1
+
+# Numbers with two periods should fail.
+
+0..
+..0
+0..0
+.00.
+.0.0
+0.0.
